@@ -10,20 +10,14 @@ CandyShop.Colors = (function(self, Candy, $) {
 
 		self.applyTranslations();
 
-		$(Candy.View.Pane.Message).bind('beforesend', function(event, args) {
-			var message = args.message;
-			if(_currentColor > 0 && $.trim(message) !== '') {
-				message = '|c:'+ _currentColor +'|' + message;
+		$(Candy).on('candy:view.message.before-send', function(e, args) {
+			if(_currentColor > 0 && $.trim(args.message) !== '') {
+				args.message = '|c:'+ _currentColor +'|' + args.message;
 			}
-			args.message = message;
-			return message;
 		});
 
-		$(Candy.View.Pane.Message).bind('beforeshow', function(event, args) {
-			var message = ($.type(args) !== 'string') ? /* Candy >= 1.0.4 */ args.message : /* Candy < 1.0.4 */ args;
-			message = message.replace(/^\|c:([0-9]{1,2})\|(.*)/gm, '<span class="colored color-$1">$2</span>');
-			args.message = message;
-			return message;
+		$(Candy).on('candy:view.message.before-show', function(e, args) {
+			args.message = args.message.replace(/^\|c:([0-9]{1,2})\|(.*)/gm, '<span class="colored color-$1">$2</span>');
 		});
 
 		if(Candy.Util.cookieExists('candyshop-colors-current')) {
@@ -71,11 +65,20 @@ CandyShop.Colors = (function(self, Candy, $) {
 	};
 
 	self.applyTranslations = function() {
-		Candy.View.Translation.en.candyshopColorsMessagecolor = 'Message color';
-		Candy.View.Translation.de.candyshopColorsMessagecolor = 'Farbe für Nachrichten';
-		Candy.View.Translation.fr.candyshopColorsMessagecolor = 'Couleur des messages';
-		Candy.View.Translation.nl.candyshopColorsMessagecolor = 'Berichtkleur';
-		Candy.View.Translation.es.candyshopColorsMessagecolor = 'Color de los mensajes';
+		var translations = {
+		  'en' : 'Message Color',
+		  'ru' : 'Цвет сообщения',
+		  'de' : 'Farbe für Nachrichten',
+		  'fr' : 'Couleur des messages',
+		  'nl' : 'Berichtkleur',
+		  'es' : 'Color de los mensajes'
+		};
+		$.each(translations, function(k, v) {
+			if(Candy.View.Translation[k]) {
+				Candy.View.Translation[k].candyshopColorsMessagecolor = v;
+			}
+
+		});
 	};
 
 	return self;
