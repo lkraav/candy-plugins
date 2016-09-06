@@ -12,7 +12,8 @@ CandyShop.Emphasis = (function(self, Candy, $) {
       { plain: '*bold*', regex: /((^|\s|\>)\*(.*?)\*(\s|\<|$))/gm, plain: "$2*$3*$4", xhtml: "$2<strong>$3</strong>$4" },
       { plain: '_italic_', regex: /((^|\s|\>)\_(.*?)\_(\s|\<|$))/gm, plain: "$2_$3_$4", xhtml: "$2<em>$3</em>$4" },
       { plain: '-strikethrough-', regex: /((^|\s|\>)\-(.*?)\-(\s|\<|$))/gm, plain: "$2-$3-$4", xhtml: "$2<span style='text-decoration: line-through;'>$3</span>$4" },
-      { plain: '+underline+', regex: /((^|\s|\>)\+(.*?)\+(\s|\<|$))/gm, plain: "$2+$3+$4", xhtml: "$2<span style='text-decoration: underline;'>$3</span>$4" }
+      { plain: '+underline+', regex: /((^|\s|\>)\+(.*?)\+(\s|\<|$))/gm, plain: "$2+$3+$4", xhtml: "$2<span style='text-decoration: underline;'>$3</span>$4" },
+      { plain: '`code`', regex: /((^|\s|\>)\`(.*?)\`(\s|\<|$))/gm, plain: "$2-$3-$4", xhtml: "$2<span style='padding: 10px; background-color: #fff; font-family: monospace; font-size: smaller;'>$3</span>$4" }
     ],
     bbcode: [
       { plain: '[b]bold[/b]', regex: /(\[b\](.*?)\[\/b\])/igm, plain: "*$2*", xhtml: "<strong>$2</strong>" },
